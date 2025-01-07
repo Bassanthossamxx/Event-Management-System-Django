@@ -1,7 +1,58 @@
-from django.shortcuts import render , redirect
-# Create your views here.
+from django.shortcuts import render, redirect , get_object_or_404
 from .models import Event
+
 def displayEvents(request):
     events = Event.objects.all()
-    return render(request, 'base/home.html', {'events': events})
+    categories = Event.CATEGORY
+    return render(request, 'base/home.html', {'events': events, 'categories': categories})
+
+def createEvent(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        date = request.POST.get('date')
+        time = request.POST.get('time')
+        category = request.POST.get('category')
+
+        # Validate category
+        if category not in dict(Event.CATEGORY).keys():
+            return render(request, 'base/form.html', {'error': 'Invalid category selected'})
+
+        # Create the event
+        event = Event.objects.create(
+            title=title,
+            description=description,
+            date=date,
+            time=time,
+            category=category
+        )
+        return redirect('home')
+
+    return render(request, 'base/form.html' , {'category': Event.CATEGORY})
+
+
+def editEvent(request, id):
+    event = get_object_or_404(Event, id=id)
+
+    if request.method == "POST":
+        event.title = request.POST.get('title')
+        event.description = request.POST.get('description')
+        event.date = request.POST.get('date')
+        event.time = request.POST.get('time')
+        event.category = request.POST.get('category')
+        event.save()
+        return redirect('home')
+
+    # Pass CATEGORY_CHOICES for the dropdown
+    category_choices = Event.CATEGORY
+    return render(request, 'base/form.html', {'event': event, 'category': category_choices})
+
+def deleteEvent(request, id):
+    event = get_object_or_404(Event, id=id)
+    event.delete()
+    return redirect('home')
+
+def filterEvent(request, category):
+    events = Event.objects.filter(category=category)
+    return render(request,'base/home.html',{'events':events})
 
