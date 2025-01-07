@@ -14,6 +14,7 @@ def createEvent(request):
         description = request.POST.get('description')
         date = request.POST.get('date')
         time = request.POST.get('time')
+        location = request.POST.get('location')
         category = request.POST.get('category')
 
         # Validate category
@@ -26,6 +27,7 @@ def createEvent(request):
             description=description,
             date=date,
             time=time,
+            location=location,
             category=category
         )
         return redirect('home')
@@ -41,6 +43,7 @@ def editEvent(request, id):
         event.description = request.POST.get('description')
         event.date = request.POST.get('date')
         event.time = request.POST.get('time')
+        location = request.POST.get('location')
         event.category = request.POST.get('category')
         event.save()
         return redirect('home')

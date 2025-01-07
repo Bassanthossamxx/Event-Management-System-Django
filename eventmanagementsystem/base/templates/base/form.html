@@ -31,7 +31,7 @@
 
         label {
             display: block;
-            margin: 10px 0 5px;
+            margin: 7px 0 5px;
             font-weight: bold;
             color: #34495e;
         }
@@ -43,7 +43,7 @@
         select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 7px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -100,7 +100,8 @@
         <!-- Description Field -->
         <label for="description">Description</label>
         <textarea name="description" required>{{ event.description|default:'' }}</textarea>
-
+<label for="location">Location</label>
+        <input type="text" name="location" value="{{ event.location|default:'' }}" required>
         <!-- Date Field -->
         <label for="date">Date</label>
         <input type="date" name="date" value="{{ event.date|date:'Y-m-d'|default:'' }}" required>

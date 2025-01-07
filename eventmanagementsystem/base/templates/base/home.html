@@ -84,8 +84,10 @@
             color: #7f8c8d;
         }
 
-        .event p {
-            margin: 10px 0;
+        .event p , h4 {
+            font-style: normal;
+            font-weight: normal;
+            margin: 7px 0;
             color: #34495e;
         }
 
@@ -119,10 +121,11 @@
         }
 
         .delete-btn {
-            padding: 8px 15px;
+            padding: 8.5px 15px;
             background-color: #e74c3c;
             color: #fff;
             border: none;
+            font-size: 15px;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -216,6 +219,7 @@
             <button class="category">{{ event.category }}</button>
             <span><strong>Date:</strong> {{ event.date }}</span>
             <span><strong>Time:</strong> {{ event.time }}</span>
+        <span><strong>location:</strong> {{ event.location }}</span>
             <p>{{ event.description|slice:":50" }}{% if event.description|length > 50 %}...{% endif %}</p>
             <div class="buttons">
                 <a href="{% url 'edit_event' event.id %}" class="edit-btn">Edit</a>
