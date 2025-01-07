@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
+    <!--styling-->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -193,6 +194,7 @@
     </style>
 </head>
 <body>
+<!--NavBar-->
 <h1><a href="/" style="text-decoration: none; color: inherit;">Event Management System</a></h1>
     <div class="filters">
         <a href="{% url 'filter_event' 'Social' %}">Social</a>
@@ -203,6 +205,7 @@
     </div>
     <a href="{% url 'create_event' %}" class="create-event">Create a new Event</a>
 
+<!--Home-->
 {% if not events %}
     <h2 style="text-align: center ; color: red">No events found</h2>
 {% endif %}
@@ -234,6 +237,7 @@
     </div>
 
     <script>
+{# javascript for popup #}
         function openPopup(eventId) {
             const popupOverlay = document.getElementById('popup-overlay');
             const deleteForm = document.getElementById('delete-form');

@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect , get_object_or_404
 from .models import Event
 
+# Display all Events
 def displayEvents(request):
     events = Event.objects.all()
     categories = Event.CATEGORY
     return render(request, 'base/home.html', {'events': events, 'categories': categories})
 
+#Add new event
 def createEvent(request):
     if request.method == "POST":
         title = request.POST.get('title')
@@ -30,7 +32,7 @@ def createEvent(request):
 
     return render(request, 'base/form.html' , {'category': Event.CATEGORY})
 
-
+#update selected event
 def editEvent(request, id):
     event = get_object_or_404(Event, id=id)
 
@@ -47,11 +49,13 @@ def editEvent(request, id):
     category_choices = Event.CATEGORY
     return render(request, 'base/form.html', {'event': event, 'category': category_choices})
 
+#delete selected event
 def deleteEvent(request, id):
     event = get_object_or_404(Event, id=id)
     event.delete()
     return redirect('home')
 
+#filter events by category
 def filterEvent(request, category):
     events = Event.objects.filter(category=category)
     return render(request,'base/home.html',{'events':events})
