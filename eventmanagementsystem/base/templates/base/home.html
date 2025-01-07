@@ -194,6 +194,16 @@
         .popup .confirm-btn:hover {
             background-color: #c0392b;
         }
+.filters a.active {
+    color: #fff;
+    background-color: #2c3e50;
+}
+
+.filters a {
+    color: #2c3e50;
+    background-color: #ecf0f1;
+}
+
     </style>
 </head>
 <body>
@@ -253,6 +263,24 @@
             const popupOverlay = document.getElementById('popup-overlay');
             popupOverlay.style.display = 'none';
         }
+        function highlightActiveFilter() {
+
+
+    const filters = document.querySelectorAll('.filters a');
+    filters.forEach(filter => {
+        filter.classList.remove('active');
+    });
+
+    const currentUrl = window.location.href;
+    filters.forEach(filter => {
+        if (currentUrl.includes(filter.getAttribute('href'))) {
+            filter.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('DOMContentLoaded', highlightActiveFilter);
+
     </script>
 </body>
 </html>
